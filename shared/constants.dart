@@ -9,6 +9,7 @@ const formInputDecoration = InputDecoration(
         borderSide: BorderSide(color: Colors.pinkAccent , width: 2.0)));
 
 
+const appBackgroundColor = Color.fromRGBO(33, 35, 48, 100);
 
 const yello = Color.fromRGBO(153, 153, 20, 100);
 const gre = Color.fromRGBO(151, 136, 136, 100);

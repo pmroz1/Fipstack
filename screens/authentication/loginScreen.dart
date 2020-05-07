@@ -1,5 +1,7 @@
 import 'package:fipstack/shared/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fipstack/services/authService.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -7,11 +9,35 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String email = '';
-  String password = "";
-
+  
   final _formKey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
+  String _email = '';
+  String _password = "";
 
+  bool validateForms() {
+    final form = _formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      print("Form is legit. @: $_email :: Password: $_password");
+      return true;
+    } else {
+      print("Form is not legit");
+      return false;
+    }
+  }
+
+  Future tryToSignIn() async {
+    if(validateForms()){
+      //loading
+      dynamic result = await _auth.signIn(_email, _password);
+      if(result){
+        print("Couldn't sign in");
+        return null;
+      }
+    }  
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,17 +57,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(height: 30.0),
                   TextFormField(
                     decoration: formInputDecoration.copyWith(hintText: 'email'),
-                    validator: (val) => (val.isEmpty) ? "email" : null,
+                    validator: (val) => (val.isEmpty) ? "Enter email" : null,
                     autocorrect: true,
-                    onChanged: null,
+                    onSaved: (val) => _email = val,
                   ),
                   SizedBox(height: 20.0),
                   TextFormField(
                     decoration:
                         formInputDecoration.copyWith(hintText: 'password'),
-                    validator: (val) => (val.isEmpty) ? "email" : null,
+                    validator: (val) => (val.isEmpty) ? 'Enter password' : null,
                     autocorrect: true,
-                    onChanged: null,
+                    onSaved: (val) => _password = val,
+                    obscureText: true,
                   ),
                   Row(
                     children: <Widget>[
@@ -63,30 +90,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: EdgeInsets.all(8.0),
                         color: Colors.black,
                         textColor: Colors.white,
-                        onPressed: () => {print("log in")},
-                        child: Text("Log in?")),
+                        onPressed: tryToSignIn,
+                        child: Text("Log in")),
                   ),
-                  //SizedBox(height: 10.0),
+                  //SizedBox(heig
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(
-                        width: 50,
-                      ),
-                      Text(
-                        "Not a member?",
-                        style: TextStyle(color: gre),
-                      ),
                       FlatButton(
-                          //color: Colors.red,
-                          textColor: Color.fromRGBO(170, 168, 168, 100),
-                          onPressed: () => {print("button")},
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(color: yello),
-                          ))
+                        onPressed: () => {print("register")},
+                        child: Row(
+                          children: <Widget>[
+                            Text("not a member?"),
+                            Text(
+                              "Sign Up",
+                              style: TextStyle(color: yello, fontSize: 22.0),
+                            )
+                          ],
+                        ),
+                      )
                     ],
-                  ),
+                  )
                 ],
               ),
             ),
