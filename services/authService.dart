@@ -26,6 +26,14 @@ class AuthService {
     return _auth.onAuthStateChanged.map(_userFromFirebaseUser);
   }
 
+  Future signOut() async {
+    try{
+      return await _auth.signOut();
+    }catch(e){
+      print(e);
+    }
+  }
+
   //Future signOut(){}
 
   //Future registerWithEmailAndPassword(){}

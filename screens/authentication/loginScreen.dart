@@ -2,6 +2,7 @@ import 'package:fipstack/shared/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fipstack/services/authService.dart';
+import 'package:fipstack/screens/authentication/registerScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,7 +10,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
   String _email = '';
@@ -28,16 +28,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future tryToSignIn() async {
-    if(validateForms()){
+    if (validateForms()) {
       //loading
       dynamic result = await _auth.signIn(_email, _password);
-      if(result){
+      if (result == null) {
         print("Couldn't sign in");
         return null;
       }
-    }  
+    }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Form(
               key: _formKey,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                //mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: 20.0),
                   Container(
@@ -98,10 +98,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       FlatButton(
-                        onPressed: () => {print("register")},
+                        onPressed: () => {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterScreen()),
+                          )
+                        },
                         child: Row(
                           children: <Widget>[
-                            Text("not a member?"),
+                            Text(
+                              "not a member?  ",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             Text(
                               "Sign Up",
                               style: TextStyle(color: yello, fontSize: 22.0),
