@@ -10,9 +10,11 @@ const formInputDecoration = InputDecoration(
 
 
 const appBackgroundColor = Color.fromRGBO(33, 35, 48, 1);
-const yello = Color.fromRGBO(153, 153, 20, 100);
-const gre = Color.fromRGBO(151, 136, 136, 100);
-const whit = Color.fromRGBO(255, 255, 255, 100);
+const yellow = Color.fromRGBO(153, 153, 20, 100);
+const grey = Color.fromRGBO(151, 136, 136, 100);
+const white = Color.fromRGBO(255, 255, 255, 100);
+const black = Color.fromRGBO(0, 0, 0, 1);
 
-const titleStyle = TextStyle(color: whit,fontSize: 40);
-const smallText = TextStyle(color: whit, fontSize: 15);
+const titleStyle = TextStyle(color: white,fontSize: 40);
+const smallText = TextStyle(color: white, fontSize: 15);
+
