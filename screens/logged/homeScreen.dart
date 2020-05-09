@@ -18,7 +18,10 @@ class HomeScreen extends StatelessWidget {
             FlatButton(
               child: Text("Log out"),
               color: Colors.red,
-              onPressed: _auth.signOut,
+              onPressed: () async {
+                _auth.signOut();
+                print("logout button");
+              },
             )
           ],
         ),

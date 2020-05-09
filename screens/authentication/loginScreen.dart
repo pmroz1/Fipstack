@@ -1,10 +1,13 @@
 import 'package:fipstack/shared/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fipstack/services/authService.dart';
-import 'package:fipstack/screens/authentication/registerScreen.dart';
+//import 'package:fipstack/screens/authentication/registerScreen.dart';
 
 class LoginScreen extends StatefulWidget {
+  final Function toggleView;
+  LoginScreen({this.toggleView});
+
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -98,12 +101,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       FlatButton(
-                        onPressed: () => {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RegisterScreen()),
-                          )
+                        onPressed: () {
+                          widget.toggleView();
+                          print("toggleview - login");
                         },
                         child: Row(
                           children: <Widget>[

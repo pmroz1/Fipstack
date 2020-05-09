@@ -1,9 +1,13 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:fipstack/screens/logged/homeScreen.dart';
 import 'package:fipstack/services/authService.dart';
 import 'package:fipstack/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
+  final Function toggleView;
+  RegisterScreen({this.toggleView});
+
   @override
   _RegisterScreenState createState() => _RegisterScreenState();
 }
@@ -11,7 +15,6 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final AuthService _auth = AuthService();
-  bool _goHome = false;
 
   var spaceBettwenForms = 15.0;
 
@@ -33,13 +36,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Future tryToRegister() async {
     if (validateForms()) {
       dynamic result = await _auth.registerAccount(_email, _password);
-      if(result != null){
-        _goHome = true;
-      }
       if (result == null) {
         print("Unable to create account");
         return null;
       }
+      print("account created");
     }
   }
 
@@ -50,6 +51,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
       appBar: AppBar(
         backgroundColor: appBackgroundColor,
         elevation: 0.0,
+        
+        actions: <Widget>[
+          FlatButton.icon(
+            onPressed: () {
+              widget.toggleView();
+              print("toggleview - register");
+            },
+            icon: Icon(
+              FeatherIcons.arrowLeft,
+              color: white,
+            ),
+            label: Text(
+              "Sign In",
+              style: smallText,
+            ),
+          )
+        ],
       ),
       body: Container(
         padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
@@ -71,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 TextFormField(
                     decoration: formInputDecoration.copyWith(hintText: 'Email'),
-                    validator: (val) => val.isEmpty ? 'Name missing' : null,
+                    validator: (val) => val.isEmpty ? 'Email missing' : null,
                     autocorrect: true,
                     onSaved: (val) {
                       setState(() => _email = val);
@@ -80,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 TextFormField(
                     decoration:
                         formInputDecoration.copyWith(hintText: 'Password'),
-                    validator: (val) => val.isEmpty ? 'Email missing' : null,
+                    validator: (val) => val.isEmpty ? 'Password missing' : null,
                     autocorrect: true,
                     obscureText: true,
                     onSaved: (val) {
@@ -129,14 +147,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       textColor: Colors.white,
                       onPressed: () async {
                         tryToRegister();
-                        if (_goHome) {
-                          _goHome = false;
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => HomeScreen()),
-                          );
-                        }
                       },
                       child: Text("Sign Up")),
                 ),
