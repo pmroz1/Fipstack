@@ -14,84 +14,94 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appBackgroundColor,
+      //backgroundColor: appBackgroundColor,
       appBar: AppBar(
         title: Text(
-          "Welcome Piotr!",
+          "Welcome Piotr",
           style: dashboardStyle,
         ),
         backgroundColor: appBackgroundColor,
         elevation: 0,
       ),
-      drawer: Drawer(
-        elevation: 1,
-        child: Container(
-          color: lightRed,
-          child: ListView(
-            children: <Widget>[
-              UserAccountsDrawerHeader(
-                  accountEmail: Text("test@tescik.pl"),
-                  accountName: Text("Piotr"),
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.fill,
-                          image: NetworkImage(
-                              "https://images-cdn.9gag.com/photo/aDgwAVx_460s.jpg")))),
-              ListTile(
-                title: Text(
-                  "My profile",
-                  style: impactFont,
-                ),
-                trailing: Icon(FeatherIcons.user),
-              ),
-              Divider(
-                height: 5,
-              ),
-              ListTile(
-                title: Text(
-                  "About us",
-                  style: impactFont,
-                ),
-                trailing: Icon(Icons.accessibility_new),
-              ),
-              Divider(
-                height: 5,
-              ),
-              ListTile(
-                title: Text(
-                  "Settings",
-                  style: impactFont,
-                ),
-                trailing: Icon(FeatherIcons.settings),
-              ),
-              Divider(
-                height: 5,
-              ),
-              ListTile(
-                title: Text(
-                  "log out",
-                  style: impactFont,
-                ),
-                trailing: Icon(FeatherIcons.logOut),
-                onTap: _auth.signOut,
-              ),
-              Divider(
-                height: 5,
-              ),
-            ],
+      drawer: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+              child: Drawer(
+          elevation: 1,
+          child: Container(
+            color: lightRed,
+            child: getSideMenu(),
           ),
         ),
       ),
       body: Container(
-        color: Colors.yellow,
-        child: Column(),
+        color: appBackgroundColor,
+        child: getAllArticles(),
       ),
     );
   }
 
-  
+  Widget getSideMenu() {
+    return ListView(
+      children: <Widget>[
+        UserAccountsDrawerHeader(
+            accountEmail: Text("test@tescik.pl"),
+            accountName: Text("Piotr"),
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(
+                        "https://images-cdn.9gag.com/photo/aDgwAVx_460s.jpg")))),
+        ListTile(
+          title: Text(
+            "My profile",
+            style: impactFont,
+          ),
+          trailing: Icon(FeatherIcons.user),
+        ),
+        Divider(
+          height: 5,
+        ),
+        ListTile(
+          title: Text(
+            "About us",
+            style: impactFont,
+          ),
+          trailing: Icon(Icons.accessibility_new),
+        ),
+        Divider(
+          height: 5,
+        ),
+        ListTile(
+          title: Text(
+            "Settings",
+            style: impactFont,
+          ),
+          trailing: Icon(FeatherIcons.settings),
+        ),
+        Divider(
+          height: 5,
+        ),
+        ListTile(
+          title: Text(
+            "log out",
+            style: impactFont,
+          ),
+          trailing: Icon(FeatherIcons.logOut),
+          onTap: _auth.signOut,
+        ),
+        Divider(
+          height: 5,
+        ),
+      ],
+    );
+  }
 
-
-
-
+  Widget getAllArticles() {
+    return ListView(
+      scrollDirection: Axis.horizontal,
+      children: <Widget>[
+       
+      ],
+    );
+  }
 }

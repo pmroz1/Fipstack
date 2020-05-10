@@ -11,7 +11,7 @@ class HomeWrapper extends StatelessWidget {
       HomeScreen(),
       TrendingScreen(),
     ];
-
+    
     return DefaultTabController(
       initialIndex: 0,
       length: 2,
