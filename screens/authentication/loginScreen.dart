@@ -1,3 +1,4 @@
+import 'package:fipstack/screens/authentication/recoverPasswordScreen.dart';
 import 'package:fipstack/shared/constants.dart';
 import 'package:flutter/material.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -79,7 +80,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       FlatButton(
                           //color: Colors.red,
                           textColor: Color.fromRGBO(170, 168, 168, 100),
-                          onPressed: () => {print("button")},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      RecoverPasswordScreen()),
+                            );
+                          },
                           child: Text("forgot password?"))
                     ],
                   ),
